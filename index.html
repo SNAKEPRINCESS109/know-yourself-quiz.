@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Personal Info Game</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+  
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://t4.ftcdn.net/jpg/03/45/88/07/360_F_345880772_zIT2mkdCzTthplO7xqaGGrMspN0jw0ll.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+  
+    body {
+      cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1197.cur'), auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+  
+    .page {
+      display: none;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transition: opacity 0.5s ease-in-out;
+    }
+  
+    .page.active {
+      display: block;
+      opacity: 1;
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+      text-shadow: 0 0 5px white, 0 0 10px white;
+      margin-bottom: 1.5rem;
+    }
+  
+    input[type="text"],
+    input[type="date"] {
+      width: 90%;
+      max-width: 400px;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin: 0.5rem 0;
+      box-sizing: border-box;
+    }
+  
+    button {
+      padding: 14px 26px;
+      margin: 10px;
+      background-color: #FF2DF1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-family: 'UnifrakturCook', cursive;
+      cursor: pointer;
+      text-shadow: 0 0 5px white, 0 0 10px white;
+      transition: background-color 0.2s;
+    }
+  
+    button:hover {
+      background-color: #e126d8;
+    }
+  
+    a {
+      font-size: 2rem;
+      color: white;
+      text-shadow: 0 0 8px white, 0 0 12px white;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: 'UnifrakturCook', cursive;
+    }
+  
+    #progress {
+      position: fixed;
+      top: 10px;
+      right: 16px;
+      font-size: 1rem;
+      z-index: 999;
+    }
+  
+    @media (max-width: 480px) {
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  a {
+    font-size: 1.6rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+
+  /* ADD THESE IF YOU WANT MORE MOBILE TWEAKS */
+  input[type="text"],
+  input[type="date"] {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .page {
+    padding: 1rem;
+  }
+}
+
+  </style>  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+</head>
+<body>
+  
+<!-- Start Page -->
+<div class="page active" id="start">
+  <a id="startLink">𝔠𝔩𝔦𝔠𝔨 𝔥𝔢𝔯𝔢 𝔱𝔬 𝔰𝔱𝔞𝔯𝔱 𝔱𝔥𝔢 𝔤𝔞𝔪𝔢</a>
+</div>
+
+<!-- Page 1 -->
+<div class="page" id="page1">
+  <h2>𝔗𝔥𝔦𝔰 𝔦𝔰 𝔞 𝔤𝔞𝔪𝔢 𝔱𝔬 𝔨𝔫𝔬𝔴 𝔪𝔬𝔯𝔢 𝔞𝔟𝔬𝔲𝔱 𝔶𝔬𝔲𝔯 𝔭𝔢𝔯𝔰𝔬𝔫𝔞𝔩 𝔦𝔫𝔣𝔬𝔯𝔪𝔞𝔱𝔦𝔬𝔫</h2>
+  <button onclick="goTo('page2')">𝔑𝔢𝔵𝔱</button>
+</div>
+
+<!-- Page 2 -->
+<div class="page" id="page2">
+  <h2>𝔗𝔥𝔢𝔰𝔢 𝔮𝔲𝔢𝔰𝔱𝔦𝔬𝔫𝔰 𝔴𝔦𝔩𝔩 𝔥𝔢𝔩𝔭 𝔶𝔬𝔲 𝔯𝔢𝔣𝔩𝔢𝔠𝔱 𝔬𝔫 𝔴𝔥𝔬 𝔶𝔬𝔲 𝔞𝔯𝔢, 𝔴𝔥𝔞𝔱 𝔶𝔬𝔲 𝔴𝔞𝔫𝔱, 𝔞𝔫𝔡 𝔥𝔬𝔴 𝔶𝔬𝔲 𝔫𝔞𝔳𝔦𝔤𝔞𝔱𝔢 𝔩𝔦𝔣𝔢.</h2>
+  <button onclick="goTo('pageReady')">𝔑𝔢𝔵𝔱</button>
+</div>
+
+<!-- Ready Page -->
+<div class="page" id="pageReady">
+  <h2>𝔄𝔯𝔢 𝔶𝔬𝔲 𝔯𝔢𝔞𝔡𝔶 𝔣𝔬𝔯 𝔱𝔥𝔢 𝔤𝔞𝔪𝔢?</h2>
+  <button onclick="goTo('namePage')">𝔜𝔢𝔰</button>
+  <button onclick="goTo('lost')">𝔑𝔬</button>
+</div>
+
+<!-- Full Name Input Page -->
+<div class="page" id="namePage">
+  <h2>𝔚𝔥𝔞𝔱'𝔰 𝔶𝔬𝔲𝔯 𝔣𝔲𝔩𝔩 𝔫𝔞𝔪𝔢?</h2>
+  <input type="text" id="fullName" placeholder="Enter your full name" style="padding: 10px; font-size: 1rem; border-radius: 6px;">
+  <br><br>
+  <button onclick="handleName()">Next</button>
+</div>
+
+<!-- Sender Name Input Page -->
+<div class="page" id="senderNamePage">
+  <h2>𝔚𝔥𝔬 𝔰𝔢𝔫𝔱 𝔶𝔬𝔲 𝔱𝔥𝔦𝔰 𝔤𝔞𝔪𝔢?</h2>
+  <input type="text" id="senderName" placeholder="Enter their full name" style="padding: 10px; font-size: 1rem; border-radius: 6px;">
+  <br><br>
+  <button onclick="handleSenderName()">Next</button>
+</div>
+
+<!-- Today's Date Input Page -->
+<div class="page" id="datePage">
+  <h2>𝔚𝔥𝔞𝔱'𝔰 𝔱𝔬𝔡𝔞𝔶'𝔰 𝔡𝔞𝔱𝔢?</h2>
+  <input type="date" id="todayDate" style="padding: 10px; font-size: 1rem; border-radius: 6px;">
+  <br><br>
+  <button onclick="handleDatePage()">𝔖𝔱𝔞𝔯𝔱</button>
+</div>
+
+<!-- Lost Page -->
+<div class="page" id="lost">
+  <h2>𝔒𝔬𝔭𝔰! 𝔜𝔬𝔲 𝔩𝔬𝔰𝔱!</h2>
+  <button onclick="goTo('pageReady')">𝔗𝔯𝔶 𝔄𝔤𝔞𝔦𝔫</button>
+</div>
+
+<!-- Q1 - Q5 Pages -->
+<div class="page" id="page3"><h2>𝔇𝔬 𝔶𝔬𝔲 𝔟𝔢𝔩𝔦𝔢𝔳𝔢 𝔶𝔬𝔲 𝔨𝔫𝔬𝔴 𝔶𝔬𝔲𝔯𝔰𝔢𝔩𝔣 𝔴𝔢𝔩𝔩?</h2><button onclick="goTo('page4')">𝔜𝔢𝔰</button><button onclick="goTo('page4')">𝔑𝔬</button></div>
+<div class="page" id="page4"><h2>𝔄𝔯𝔢 𝔶𝔬𝔲 𝔠𝔬𝔪𝔣𝔬𝔯𝔱𝔞𝔟𝔩𝔢 𝔟𝔢𝔦𝔫𝔤 𝔞𝔩𝔬𝔫𝔢 𝔴𝔦𝔱𝔥 𝔶𝔬𝔲𝔯 𝔱𝔥𝔬𝔲𝔤𝔥𝔱𝔰?</h2><button onclick="goTo('page5')">𝔜𝔢𝔰</button><button onclick="goTo('page5')">𝔑𝔬</button></div>
+<div class="page" id="page5"><h2>𝔇𝔬 𝔶𝔬𝔲 𝔬𝔣𝔱𝔢𝔫 𝔯𝔢𝔣𝔩𝔢𝔠𝔱 𝔬𝔫 𝔶𝔬𝔲𝔯 𝔡𝔢𝔠𝔦𝔰𝔦𝔬𝔫𝔰?</h2><button onclick="goTo('page6')">𝔜𝔢𝔰</button><button onclick="goTo('page6')">𝔑𝔬</button></div>
+<div class="page" id="page6"><h2>𝔄𝔯𝔢 𝔶𝔬𝔲 𝔪𝔬𝔯𝔢 𝔢𝔪𝔬𝔱𝔦𝔬𝔫𝔞𝔩 𝔱𝔥𝔞𝔫 𝔩𝔬𝔤𝔦𝔠𝔞𝔩?</h2><button onclick="goTo('page7')">𝔜𝔢𝔰</button><button onclick="goTo('page7')">𝔑𝔬</button></div>
+<div class="page" id="page7"><h2>𝔇𝔬 𝔶𝔬𝔲 𝔣𝔦𝔫𝔡 𝔦𝔱 𝔢𝔞𝔰𝔶 𝔱𝔬 𝔢𝔵𝔭𝔯𝔢𝔰𝔰 𝔶𝔬𝔲𝔯 𝔣𝔢𝔢𝔩𝔦𝔫𝔤𝔰?</h2><button onclick="goTo('marry')">𝔜𝔢𝔰</button><button onclick="goTo('marry')">𝔑𝔬</button></div>
+
+<!-- Will You Marry Me -->
+<div class="page" id="marry">
+  <h2 style="font-size: 2.5rem;">𝔚𝔦𝔩𝔩 𝔶𝔬𝔲 𝔪𝔞𝔯𝔯𝔶 𝔪𝔢?</h2>
+  <button onclick="goTo('congrats')">𝔜𝔢𝔰</button>
+  <button onclick="goTo('error')">𝔑𝔬</button>
+</div>
+
+<!-- Updated Error Page -->
+<div class="page" id="error">
+  <h2 style="font-size: 2.2rem;">
+    𝔖𝔬𝔯𝔯𝔶, "𝔑𝔬" 𝔦𝔰 𝔫𝔬𝔱 𝔞 𝔳𝔞𝔩𝔦𝔡 𝔯𝔢𝔰𝔭𝔬𝔫𝔰𝔢 — 𝔢𝔯𝔯𝔬𝔯 𝔡𝔢𝔱𝔢𝔠𝔱𝔢𝔡.<br>
+    𝔓𝔩𝔢𝔞𝔰𝔢 𝔱𝔯𝔶 𝔞𝔤𝔞𝔦𝔫... 𝔟𝔲𝔱 𝔱𝔥𝔦𝔰 𝔱𝔦𝔪𝔢 𝔴𝔦𝔱𝔥 𝔞 "𝔜𝔢𝔰"!<br>
+    𝔚𝔦𝔩𝔩 𝔶𝔬𝔲 𝔪𝔞𝔯𝔯𝔶 𝔪𝔢?
+  </h2>
+  <button onclick="goTo('congrats')">𝔜𝔢𝔰</button>
+</div>
+
+<!-- Congratulations Page (Add your own content here) -->
+<div class="page" id="congrats" style="display: none;">
+  <h2 style="font-size: 2.5rem;">💍 𝔠𝔬𝔫𝔤𝔯𝔞𝔱𝔲𝔩𝔞𝔱𝔦𝔬𝔫𝔰!</h2>
+  <p id="finalMessage" style="font-size: 1.3rem; text-shadow: 0 0 4px white; padding: 1rem;">
+    <!-- Message will be added by JS -->
+  </p>
+</div>
+
+<!-- Keep your full HTML as is, but replace the <script> section with this fixed version: -->
+  <script>
+    let fullName = "";
+    let senderName = "";
+    let weddingDate = "";
+    
+    const steps = [
+      'page1',
+      'page2',
+      'pageReady',
+      'namePage',
+      'senderNamePage',
+      'datePage',
+      'page3',
+      'page4',
+      'page5',
+      'page6',
+      'page7',
+      'marry',
+    ];
+    
+    function handleName() {
+      const input = document.getElementById('fullName');
+      const nameValue = input.value.trim();
+      if (nameValue === "") {
+        alert("Please enter your full name!");
+        return;
+      }
+      fullName = nameValue;
+      goTo('senderNamePage');
+    }
+    
+    function handleSenderName() {
+      const input = document.getElementById('senderName');
+      const nameValue = input.value.trim();
+      if (nameValue === "") {
+        alert("Please enter the sender's full name!");
+        return;
+      }
+      senderName = nameValue;
+      goTo('datePage');
+    }
+    
+    function handleDatePage() {
+      const dateInput = document.getElementById('todayDate');
+      if (!dateInput.value) {
+        alert("Please enter today’s date!");
+        return;
+      }
+      weddingDate = dateInput.value;
+      goTo('page3');
+    }
+    
+    function goTo(pageId) {
+  const currentPage = document.querySelector('.page.active');
+  if (!validateCurrentPage(currentPage.id)) return;
+
+  if (currentPage) {
+    currentPage.classList.remove('active');
+    setTimeout(() => {
+      currentPage.style.display = 'none';
+    }, 500);
+  }
+
+  const nextPage = document.getElementById(pageId);
+  nextPage.style.display = 'block';
+  setTimeout(() => {
+    nextPage.classList.add('active');
+  }, 50);
+
+  const stepIndex = steps.indexOf(pageId);
+  const progressDiv = document.getElementById('progress');
+  if (stepIndex !== -1) {
+    progressDiv.textContent = `Step ${stepIndex + 1} of ${steps.length}`;
+  } else {
+    progressDiv.textContent = '';
+  }
+
+  if (pageId === 'congrats') {
+    const finalText = `💍 Congratulations!<br><br>
+      ${senderName} and ${fullName} are now officially and irrevocably married on <strong>${weddingDate}</strong> — sealed by fate, laughter, and just a touch of boldness.<br><br>
+      No need for rings or witnesses — the moment chose you both. 💫<br><br>
+      Let the forever begin. ❤️`;
+    document.getElementById('finalMessage').innerHTML = finalText;
+
+    // 🎉 Only trigger confetti on the congrats page
+    if (typeof confetti === 'function') {
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({
+          particleCount: 10,
+          spread: 100,
+          origin: { y: Math.random() - 0.2 },
+          emojis: ['💖', '💍', '💕', '✨', '🎉'],
+        });
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+  }
+}
+    
+function validateCurrentPage(pageId) {
+  const skipValidation = ['start', 'page1', 'page2', 'pageReady', 'page3', 'page4', 'page5', 'page6', 'page7', 'marry', 'error', 'congrats'];
+  if (skipValidation.includes(pageId)) return true;
+
+  if (pageId === 'namePage') {
+    const name = document.getElementById('fullName').value.trim();
+    if (!name) {
+      alert("Please enter your full name!");
+      return false;
+    }
+    fullName = name;
+  }
+
+  if (pageId === 'senderNamePage') {
+    const sender = document.getElementById('senderName').value.trim();
+    if (!sender) {
+      alert("Please enter the sender's full name!");
+      return false;
+    }
+    senderName = sender;
+  }
+
+  if (pageId === 'datePage') {
+    const date = document.getElementById('todayDate').value;
+    if (!date) {
+      alert("Please enter today's date!");
+      return false;
+    }
+    weddingDate = date;
+  }
+
+  return true;
+}
+    
+    document.getElementById('startLink').addEventListener('click', () => goTo('page1'));
+    </script>
+    
+<div id="progress" style="position: fixed; top: 10px; right: 20px; color: white; font-size: 1.2rem; font-family: 'UnifrakturCook', cursive; text-shadow: 0 0 5px white;"></div>
+</body>
+</html>
